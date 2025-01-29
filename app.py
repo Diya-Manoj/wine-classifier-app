@@ -20,8 +20,6 @@ feature_names = ["Alcohol", "Malic Acid", "Ash", "Alcalinity of Ash", "Magnesium
 # User Input Section
 with st.expander("🔧 Enter Wine Features"):
     user_input = [st.number_input(f"🔹 {feature}", min_value=0.0, step=0.1, format="%.2f") for feature in feature_names]
-with st.spinner("🍇 Analyzing wine features..."):
-    prediction, prediction_proba = predict_wine_category(user_input)
 
 
 # Initialize Prediction History in session state if not exists
