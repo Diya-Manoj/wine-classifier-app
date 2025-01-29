@@ -21,7 +21,7 @@ feature_names = ["Alcohol", "Malic Acid", "Ash", "Alcalinity of Ash", "Magnesium
 with st.expander("🔧 Enter Wine Features"):
     user_input = [st.number_input(f"🔹 {feature}", min_value=0.0, step=0.1, format="%.2f") for feature in feature_names]
 
-# Prediction History from session state
+# Initialize Prediction History in session state if not exists
 if 'history' not in st.session_state:
     st.session_state['history'] = []
 
@@ -51,19 +51,24 @@ if st.button("🔍 Predict Wine Category"):
         st.success(f"🍷 Predicted Wine Category: **{prediction[0]}**")
         st.write(f"📊 Prediction Confidence: {max(prediction_proba[0]) * 100:.2f}%")
 
-        # Visualize prediction probabilities
-        prob_df = pd.DataFrame(prediction_proba, columns=model.classes_)
+        # Handle probability visualization
+        try:
+            categories = model.classes_
+        except AttributeError:
+            categories = [f"Category {i}" for i in range(len(prediction_proba[0]))]
+
+        prob_df = pd.DataFrame(prediction_proba, columns=categories)
         st.bar_chart(prob_df.T)
 
         # Save Prediction History
-        st.session_state['history'].append((user_input, prediction[0]))
+        st.session_state['history'].append((user_input.copy(), prediction[0]))
 
         # Download Option
         st.download_button("📥 Download Prediction", f"Wine Category: {prediction[0]}", file_name="prediction.txt")
 
 # Reset Button
 if st.button("🔄 Reset"):
-    st.session_state['history'] = []
+    st.session_state.clear()
     st.rerun()
 
 # Styling
