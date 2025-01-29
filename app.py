@@ -1,22 +1,15 @@
-
 import streamlit as st
-import pickle
+import joblib
 import numpy as np
 
 # Load the trained Random Forest model
 import os
 
-model_path = os.path.join(os.getcwd(), "rf_classifier.pkl")
-with open(model_path, "rb") as model_file:
-    model = pickle.load(model_file)
-
-
-# Load the scaler
-with open("rf_scaler.pkl", "rb") as scaler_file:
-    scaler = pickle.load(scaler_file)
+model= joblib.load('rf_classifier.pkl')
+scaler=joblib.load('rf_scaler.pkl')
 
 # Feature names (update based on dataset)
-feature_names = ["Feature 1", "Feature 2", "Feature 3", "Feature 4", "Feature 5"]
+feature_names = ["malic_acid", "magnesium", "flavanoids", "color_intensity", "proline"]
 
 # Streamlit UI
 st.title("🍷 Wine Classification App")
