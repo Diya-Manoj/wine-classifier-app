@@ -70,7 +70,7 @@ if st.button("🔍 Predict Wine Category"):
 if st.button("🔄 Reset"):
     # Clear only inputs, retain history
     st.session_state['last_inputs'] = []
-    st.experimental_rerun()
+    st.rerun()
 
 # Ensure history is retained without resetting it
 if 'last_inputs' not in st.session_state:
