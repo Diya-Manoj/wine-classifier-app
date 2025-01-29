@@ -99,11 +99,18 @@ st.markdown(
     .stSidebar {
         background-color: #A52A2A;
     }
+    .prediction-card {
+        background: linear-gradient(to right, #ffb6c1, #ff69b4);
+        padding: 15px;
+        color: white;
+        font-size: 18px;
+        text-align: center;
+        border-radius: 12px;
+        margin-top: 10px;
+    }
     </style>
-    <div style="border: 4px solid #8B0000; padding: 20px; border-radius: 15px; background: url('https://example.com/wine-stain.png') repeat;">
-    🍇 Enter Wine Features
-    </div>
-    """,
-    unsafe_allow_html=True
+    """
+    , unsafe_allow_html=True
 )
 
+st.markdown(f"<div class='prediction-card'>Predicted Wine Category: **{prediction[0]}**</div>", unsafe_allow_html=True)
