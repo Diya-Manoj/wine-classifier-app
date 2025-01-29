@@ -82,9 +82,24 @@ st.markdown(
     """
     <style>
     body {
-        background-color: #f9f9f9;
+        background: linear-gradient(135deg, #f5f5dc, #ffe4e1);
+        font-family: 'Roboto', sans-serif;
+    }
+    .stButton>button {
+        background-color: #8B0000;
+        color: white;
+        border-radius: 8px;
+        padding: 10px 15px;
+    }
+    .stButton>button:hover {
+        background-color: #A52A2A;
+        color: #fff;
+    }
+    .stSidebar {
+        background-color: #ffe4e1;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
+
