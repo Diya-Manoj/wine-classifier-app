@@ -99,18 +99,7 @@ st.markdown(
     .stSidebar {
         background-color: #A52A2A;
     }
-    .prediction-card {
-        background: linear-gradient(to right, #ffb6c1, #ff69b4);
-        padding: 15px;
-        color: white;
-        font-size: 18px;
-        text-align: center;
-        border-radius: 12px;
-        margin-top: 10px;
-    }
     </style>
-    """
-    , unsafe_allow_html=True
+    """,
+    unsafe_allow_html=True
 )
-
-st.markdown(f"<div class='prediction-card'>Predicted Wine Category: **{prediction[0]}**</div>", unsafe_allow_html=True)
