@@ -37,6 +37,10 @@ if st.button("🔍 Predict Wine Category"):
         st.success(f"🍷 Predicted Wine Category: **{prediction[0]}**")
         st.write(f"📊 Prediction Confidence: {max(prediction_proba[0]) * 100:.2f}%")
 
+        # Visualize prediction probabilities
+        prob_df = pd.DataFrame(prediction_proba, columns=model.classes_)
+        st.bar_chart(prob_df.T)
+
         # Download Option
         st.download_button("📥 Download Prediction", f"Wine Category: {prediction[0]}", file_name="prediction.txt")
 
