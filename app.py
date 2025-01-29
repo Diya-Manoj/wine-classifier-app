@@ -96,7 +96,7 @@ st.markdown(
         color: #fff;
     }
     .stSidebar {
-        background-color: #ffe4e1;
+        background-color: #A52A2A;
     }
     </style>
     """,
