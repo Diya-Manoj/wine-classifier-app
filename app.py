@@ -100,6 +100,9 @@ st.markdown(
         background-color: #A52A2A;
     }
     </style>
+    <div style="border: 4px solid #8B0000; padding: 20px; border-radius: 15px; background: url('https://example.com/wine-stain.png') repeat;">
+    🍇 Enter Wine Features
+    </div>
     """,
     unsafe_allow_html=True
 )
