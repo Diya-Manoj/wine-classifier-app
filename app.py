@@ -30,7 +30,8 @@ with st.sidebar:
     st.header("📜 Prediction History")
     if st.session_state['history']:
         for idx, (inputs, pred) in enumerate(st.session_state['history'][-5:]):
-            st.write(f"**{idx + 1}.** Inputs: {inputs}, Predicted: **{pred}**")
+            input_details = ", ".join([f"{feature}: {value}" for feature, value in zip(feature_names, inputs)])
+            st.write(f"**{idx + 1}.** {input_details}, Predicted Wine Category: **{pred}**")
     else:
         st.write("No predictions yet.")
 
