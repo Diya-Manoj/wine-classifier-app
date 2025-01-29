@@ -8,33 +8,38 @@ import os
 model= joblib.load('rf_classifier.pkl')
 scaler=joblib.load('rf_scaler.pkl')
 
-# Feature names (update based on dataset)
-feature_names = ["malic_acid", "magnesium", "flavanoids", "color_intensity", "proline"]
+st.title("🍷 Wine Classifier App")
+st.write("Enter the wine features below to classify the wine category.")
 
-# Streamlit UI
-st.title("🍷 Wine Classification App")
-st.write("Enter feature values below to predict the wine class.")
+# Feature Names (Modify as per your dataset)
+feature_names = ["Alcohol", "Malic Acid", "Ash", "Alcalinity of Ash", "Magnesium"]
 
-# Create input fields for each feature
+# Create input fields dynamically
 user_input = []
 for feature in feature_names:
-    value = st.text_input(f"{feature}:", "")
+    value = st.number_input(f"🔹 {feature}", min_value=0.0, step=0.1, format="%.2f")
     user_input.append(value)
 
-# Convert input to NumPy array & preprocess
-if st.button("Predict"):
-    try:
-        # Convert inputs to float & reshape for model
-        input_array = np.array(user_input, dtype=float).reshape(1, -1)
+# Predict Button
+if st.button("🔍 Predict Wine Category"):
+    if None in user_input:
+        st.warning("⚠️ Please enter all values before predicting.")
+    else:
+        # Convert input to 2D array and scale it
+        input_array = np.array(user_input).reshape(1, -1)
+        scaled_input = scaler.transform(input_array)
 
-        # Apply scaling
-        input_scaled = scaler.transform(input_array)
+        # Make prediction
+        prediction = model.predict(scaled_input)
+        prediction_proba = model.predict_proba(scaled_input)
 
-        # Predict wine class
-        prediction = model.predict(input_scaled)[0]
+        # Display Result
+        st.success(f"🍷 Predicted Wine Category: **{prediction[0]}**")
+        st.write(f"📊 Prediction Confidence: {max(prediction_proba[0]) * 100:.2f}%")
 
-        # Display prediction
-        st.success(f"🍷 Predicted Wine Class: **{prediction}**")
+        # Download Option
+        st.download_button("📥 Download Prediction", f"Wine Category: {prediction[0]}", file_name="prediction.txt")
 
-    except ValueError:
-        st.error("⚠️ Please enter valid numeric values for all fields.")
+# Reset Button
+if st.button("🔄 Reset"):
+    st.rerun()
